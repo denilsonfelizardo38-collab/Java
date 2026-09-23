@@ -3,1458 +3,1293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Java Mastery — Do Zero ao Dev Empregável</title>
 
+<meta name="description" content="Descubra o seu nível em Java e veja o próximo passo para evoluir na programação.">
+
 <style>
+/* =========================================================
+   JAVA MASTERY
+   MOBILE FIRST • LEVE • RESPONSIVO
+========================================================= */
+
 :root{
-  --bg:#050706;
-  --bg2:#08100b;
-  --card:#0b140e;
-  --card2:#101c13;
-  --border:#193320;
-  --green:#7CFF3C;
-  --green2:#4ade80;
-  --yellow:#facc15;
-  --text:#f1f7f1;
-  --muted:#91a497;
-  --red:#ff6262;
-  --mono:"JetBrains Mono","Courier New",monospace;
+    --bg:#050806;
+    --bg-soft:#09100b;
+    --card:#0c1510;
+    --card-2:#101b13;
+
+    --green:#7cff3c;
+    --green-2:#4ade80;
+    --green-dark:#173d20;
+
+    --yellow:#facc15;
+
+    --text:#f3f7f3;
+    --muted:#94a39a;
+
+    --border:#1b3221;
+
+    --danger:#ff6464;
+
+    --radius:22px;
+
+    --font:Inter,Segoe UI,Arial,sans-serif;
+    --mono:"Courier New",monospace;
 }
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  background:
-    radial-gradient(circle at 50% 0%,rgba(124,255,60,.09),transparent 32%),
-    var(--bg);
-  color:var(--text);
-  font-family:"Segoe UI",Arial,sans-serif;
-  line-height:1.5;
-  min-height:100vh;
-  overflow-x:hidden;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(124,255,60,.10),transparent 35%),
+        var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    line-height:1.5;
+    overflow-x:hidden;
 }
 
-/* =========================
+/* =========================================================
    BACKGROUND
-========================= */
+========================================================= */
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.20;
-  background-image:
-    linear-gradient(rgba(124,255,60,.07) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(124,255,60,.07) 1px,transparent 1px);
-  background-size:45px 45px;
-  mask-image:linear-gradient(to bottom,black,transparent 80%);
-  animation:gridMove 18s linear infinite;
+.background-grid{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+
+    background-image:
+        linear-gradient(rgba(124,255,60,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(124,255,60,.025) 1px,transparent 1px);
+
+    background-size:45px 45px;
 }
 
-body::after{
-  content:"";
-  position:fixed;
-  width:600px;
-  height:600px;
-  border-radius:50%;
-  background:rgba(124,255,60,.055);
-  filter:blur(100px);
-  top:-250px;
-  left:50%;
-  transform:translateX(-50%);
-  pointer-events:none;
-  animation:pulseGlow 5s ease-in-out infinite;
+.background-glow{
+    position:fixed;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    background:rgba(124,255,60,.06);
+    filter:blur(60px);
+    top:-120px;
+    left:50%;
+    transform:translateX(-50%);
+    pointer-events:none;
+    z-index:-1;
 }
 
-@keyframes gridMove{
-  from{transform:translateY(0);}
-  to{transform:translateY(45px);}
+/* =========================================================
+   APP
+========================================================= */
+
+.app{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:25px 18px 50px;
 }
 
-@keyframes pulseGlow{
-  0%,100%{opacity:.5;transform:translateX(-50%) scale(.9);}
-  50%{opacity:1;transform:translateX(-50%) scale(1.1);}
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    text-align:center;
+    padding:25px 0 35px;
 }
 
-/* floating code */
+.brand{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
 
-.code-float{
-  position:fixed;
-  color:rgba(124,255,60,.13);
-  font-family:var(--mono);
-  font-size:14px;
-  pointer-events:none;
-  z-index:0;
-  animation:floatCode 12s ease-in-out infinite;
+    font-size:1.45rem;
+    font-weight:900;
+    letter-spacing:.02em;
+
+    animation:fadeDown .6s ease both;
 }
 
-.cf1{left:5%;top:18%;}
-.cf2{right:5%;top:27%;animation-delay:2s;}
-.cf3{left:8%;top:70%;animation-delay:4s;}
-.cf4{right:8%;top:78%;animation-delay:6s;}
-
-@keyframes floatCode{
-  0%,100%{transform:translateY(0) rotate(0deg);opacity:.1;}
-  50%{transform:translateY(-25px) rotate(2deg);opacity:.25;}
+.brand-icon{
+    font-size:1.7rem;
 }
 
-/* =========================
-   MAIN
-========================= */
-
-.page{
-  position:relative;
-  z-index:2;
-  width:100%;
+.brand span{
+    color:var(--green);
 }
 
-.wrap{
-  max-width:720px;
-  margin:auto;
-  padding:70px 22px 100px;
-  text-align:center;
+.brand strong{
+    color:var(--yellow);
 }
 
-/* =========================
-   LOGO
-========================= */
+.badge{
+    display:inline-block;
+    margin-top:10px;
 
-.logo-area{
-  opacity:0;
-  transform:translateY(-35px) scale(.9);
-  animation:logoEnter 1s cubic-bezier(.16,1,.3,1) .2s forwards;
+    color:var(--yellow);
+    font-size:.68rem;
+    font-weight:800;
+    letter-spacing:.18em;
 }
 
-@keyframes logoEnter{
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+.hero-content{
+    margin-top:42px;
 }
 
-.logo{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:2.15rem;
-  font-weight:950;
-  letter-spacing:-1px;
+.hero h1{
+    font-size:clamp(2rem,7vw,3.2rem);
+    line-height:1.12;
+    letter-spacing:-.04em;
+    font-weight:900;
+
+    animation:fadeUp .7s ease .1s both;
 }
 
-.logo-icon{
-  display:inline-flex;
-  width:48px;
-  height:48px;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(124,255,60,.35);
-  border-radius:14px;
-  background:rgba(124,255,60,.08);
-  box-shadow:
-    0 0 25px rgba(124,255,60,.12),
-    inset 0 0 20px rgba(124,255,60,.05);
-  animation:iconPulse 3s ease-in-out infinite;
+.hero h1 .accent{
+    color:var(--green);
 }
 
-@keyframes iconPulse{
-  0%,100%{box-shadow:0 0 20px rgba(124,255,60,.08);}
-  50%{box-shadow:0 0 35px rgba(124,255,60,.3);}
+.hero-description{
+    max-width:580px;
+    margin:20px auto 0;
+
+    color:var(--muted);
+    font-size:.98rem;
+
+    animation:fadeUp .7s ease .2s both;
 }
 
-.logo .green{
-  color:var(--green);
-}
-
-.logo .yellow{
-  color:var(--yellow);
-}
-
-.sub{
-  margin-top:8px;
-  color:var(--yellow);
-  font-size:.72rem;
-  letter-spacing:.3em;
-  font-weight:800;
-  opacity:0;
-  animation:fadeUp .8s ease 1s forwards;
-}
-
-/* =========================
+/* =========================================================
    TERMINAL
-========================= */
+========================================================= */
 
 .terminal{
-  max-width:470px;
-  margin:40px auto 0;
-  text-align:left;
-  border:1px solid var(--border);
-  background:rgba(7,13,9,.82);
-  border-radius:15px;
-  overflow:hidden;
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.45),
-    0 0 35px rgba(124,255,60,.06);
-  opacity:0;
-  transform:perspective(800px) rotateX(10deg) translateY(30px);
-  animation:terminalEnter 1s cubic-bezier(.16,1,.3,1) 1.15s forwards;
+    max-width:530px;
+    margin:28px auto 0;
+
+    text-align:left;
+
+    background:#071009;
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.25);
+
+    animation:fadeUp .7s ease .3s both;
 }
 
-@keyframes terminalEnter{
-  to{
-    opacity:1;
-    transform:perspective(800px) rotateX(0) translateY(0);
-  }
-}
+.terminal-top{
+    display:flex;
+    align-items:center;
+    gap:6px;
 
-.terminal-head{
-  height:34px;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:0 13px;
-  border-bottom:1px solid var(--border);
-  background:#0d1710;
+    padding:11px 13px;
+
+    border-bottom:1px solid var(--border);
 }
 
 .dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#304936;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#35523b;
 }
 
 .terminal-title{
-  margin-left:7px;
-  font:10px var(--mono);
-  color:#65796a;
+    margin-left:6px;
+
+    color:#66806e;
+    font-family:var(--mono);
+    font-size:.68rem;
 }
 
-.terminal-body{
-  padding:14px 17px;
-  font:12px/1.8 var(--mono);
-  color:#9caf9e;
+.code{
+    padding:18px;
+
+    color:#a9c5ad;
+    font-family:var(--mono);
+    font-size:.7rem;
+    line-height:1.8;
 }
 
-.green-code{
-  color:var(--green);
+.code .green{
+    color:var(--green);
 }
 
-.yellow-code{
-  color:var(--yellow);
+.code .yellow{
+    color:var(--yellow);
 }
 
-.cursor{
-  display:inline-block;
-  width:7px;
-  height:13px;
-  background:var(--green);
-  vertical-align:-2px;
-  animation:blink .8s infinite;
+.code .blue{
+    color:#7dd3fc;
 }
 
-@keyframes blink{
-  50%{opacity:0;}
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero-title{
-  font-size:clamp(2rem,7vw,3.25rem);
-  line-height:1.12;
-  letter-spacing:-1.8px;
-  font-weight:950;
-  margin-top:42px;
-  opacity:0;
-  transform:translateY(50px);
-  animation:heroTitle 1.1s cubic-bezier(.16,1,.3,1) 1.7s forwards;
-}
-
-@keyframes heroTitle{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.hero-title .accent{
-  color:var(--green);
-  text-shadow:0 0 30px rgba(124,255,60,.18);
-}
-
-.lead{
-  color:var(--muted);
-  max-width:590px;
-  margin:22px auto 0;
-  font-size:1rem;
-  opacity:0;
-  transform:translateY(30px);
-  animation:fadeUp .9s cubic-bezier(.16,1,.3,1) 2s forwards;
-}
-
-@keyframes fadeUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* =========================
+/* =========================================================
    CTA
-========================= */
+========================================================= */
 
 .cta-box{
-  max-width:620px;
-  margin:38px auto 0;
-  padding:8px;
-  border-radius:25px;
-  background:linear-gradient(
-    135deg,
-    rgba(124,255,60,.12),
-    rgba(250,204,21,.04)
-  );
-  border:1px solid rgba(124,255,60,.18);
-  opacity:0;
-  transform:translateY(40px) scale(.96);
-  animation:ctaEnter 1s cubic-bezier(.16,1,.3,1) 2.3s forwards;
+    margin:28px auto 0;
+    max-width:590px;
+
+    padding:18px;
+
+    background:linear-gradient(
+        145deg,
+        rgba(17,31,19,.96),
+        rgba(8,15,10,.96)
+    );
+
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+
+    animation:fadeUp .7s ease .4s both;
 }
 
-@keyframes ctaEnter{
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+.primary-btn{
+    width:100%;
+    display:block;
+
+    padding:17px 20px;
+
+    border:0;
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        var(--green-2),
+        var(--yellow)
+    );
+
+    color:#071008;
+
+    font-size:.95rem;
+    font-weight:900;
+
+    text-decoration:none;
+    cursor:pointer;
+
+    box-shadow:0 8px 25px rgba(124,255,60,.12);
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
 }
 
-.cta-btn{
-  position:relative;
-  overflow:hidden;
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  color:#071007;
-  background:linear-gradient(
-    100deg,
-    var(--green2),
-    var(--green),
-    var(--yellow)
-  );
-  background-size:200% 100%;
-  font-weight:950;
-  padding:18px 20px;
-  border-radius:19px;
-  font-size:.98rem;
-  box-shadow:
-    0 12px 35px rgba(124,255,60,.15);
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease;
-  animation:gradientMove 4s ease infinite;
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(124,255,60,.18);
 }
 
-@keyframes gradientMove{
-  0%,100%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
+.primary-btn:active{
+    transform:scale(.98);
 }
 
-.cta-btn::before{
-  content:"";
-  position:absolute;
-  top:-100%;
-  left:-30%;
-  width:30%;
-  height:300%;
-  background:rgba(255,255,255,.35);
-  transform:rotate(20deg);
-  animation:shine 4s ease-in-out infinite;
+.small-note{
+    margin-top:12px;
+
+    color:var(--muted);
+    text-align:center;
+
+    font-size:.75rem;
 }
 
-@keyframes shine{
-  0%,55%{left:-40%;}
-  75%{left:120%;}
-  100%{left:120%;}
-}
-
-.cta-btn:hover{
-  transform:translateY(-4px) scale(1.01);
-  box-shadow:
-    0 18px 50px rgba(124,255,60,.28);
-}
-
-.timer{
-  color:var(--muted);
-  font-size:.78rem;
-  margin-top:13px;
-  padding-bottom:7px;
-}
-
-.micro{
-  margin-top:25px;
-  font:10px var(--mono);
-  color:#526457;
-  letter-spacing:.08em;
-  opacity:0;
-  animation:fadeUp .8s ease 2.7s forwards;
-}
-
-/* =========================
-   SECTION SYSTEM
-========================= */
-
-.section{
-  max-width:900px;
-  margin:0 auto;
-  padding:100px 22px;
-}
-
-.section.hidden{
-  display:none;
-}
-
-.reveal{
-  opacity:0;
-  transform:translateY(70px) scale(.97);
-  transition:
-    opacity .9s cubic-bezier(.16,1,.3,1),
-    transform .9s cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.visible{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-
-/* =========================
+/* =========================================================
    QUIZ
-========================= */
+========================================================= */
 
-.quiz-shell{
-  max-width:650px;
-  margin:auto;
+.quiz-section{
+    display:none;
+}
+
+.quiz-section.active{
+    display:block;
+}
+
+.quiz-header{
+    padding:15px 0 20px;
 }
 
 .quiz-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:14px;
-  font:11px var(--mono);
-  color:var(--muted);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    color:var(--muted);
+    font-size:.75rem;
+    font-weight:700;
 }
 
 .progress{
-  height:5px;
-  background:#132117;
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:35px;
+    width:100%;
+    height:6px;
+
+    background:#142019;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 .progress-bar{
-  height:100%;
-  width:16.66%;
-  border-radius:20px;
-  background:linear-gradient(90deg,var(--green),var(--yellow));
-  box-shadow:0 0 15px rgba(124,255,60,.4);
-  transition:width .5s cubic-bezier(.16,1,.3,1);
+    width:16.66%;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        var(--green),
+        var(--yellow)
+    );
+
+    border-radius:20px;
+
+    transition:width .3s ease;
 }
+
+/* =========================================================
+   QUIZ CARD
+========================================================= */
 
 .quiz-card{
-  background:
-    linear-gradient(145deg,rgba(17,29,19,.95),rgba(8,15,10,.96));
-  border:1px solid var(--border);
-  border-radius:25px;
-  padding:35px 25px;
-  box-shadow:0 25px 80px rgba(0,0,0,.35);
-  overflow:hidden;
-}
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,27,17,.98),
+            rgba(8,15,10,.98)
+        );
 
-.quiz-card.question-enter{
-  animation:questionEnter .65s cubic-bezier(.16,1,.3,1);
-}
+    border:1px solid var(--border);
+    border-radius:25px;
 
-.quiz-card.question-exit{
-  animation:questionExit .35s ease forwards;
-}
+    padding:26px 18px;
 
-@keyframes questionEnter{
-  from{
-    opacity:0;
-    transform:translateX(80px) scale(.96);
-    filter:blur(8px);
-  }
-  to{
+    box-shadow:0 15px 45px rgba(0,0,0,.28);
+
     opacity:1;
-    transform:translateX(0) scale(1);
-    filter:blur(0);
-  }
+    transform:translateX(0);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
 }
 
-@keyframes questionExit{
-  to{
+.quiz-card.leaving{
     opacity:0;
-    transform:translateX(-80px) scale(.96);
-    filter:blur(8px);
-  }
+    transform:translateX(-28px);
 }
 
-.quiz-number{
-  color:var(--green);
-  font:11px var(--mono);
-  letter-spacing:.15em;
-  margin-bottom:12px;
+.quiz-card.entering{
+    opacity:0;
+    transform:translateX(28px);
 }
 
-.quiz-question{
-  font-size:1.45rem;
-  line-height:1.3;
-  font-weight:850;
-  margin-bottom:28px;
+.question-number{
+    color:var(--green);
+
+    font-family:var(--mono);
+    font-size:.72rem;
+    font-weight:bold;
+
+    margin-bottom:12px;
 }
+
+.question{
+    font-size:1.35rem;
+    line-height:1.3;
+    font-weight:850;
+
+    margin-bottom:22px;
+}
+
+/* =========================================================
+   ANSWERS
+========================================================= */
 
 .answers{
-  display:grid;
-  gap:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
 .answer{
-  width:100%;
-  border:1px solid var(--border);
-  background:#0c1710;
-  color:var(--text);
-  padding:17px;
-  border-radius:15px;
-  text-align:left;
-  cursor:pointer;
-  font-size:.94rem;
-  transition:
-    transform .25s ease,
-    border-color .25s ease,
-    background .25s ease,
-    box-shadow .25s ease;
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px;
+
+    background:#0a130d;
+
+    border:1px solid #1b3020;
+    border-radius:15px;
+
+    color:var(--text);
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-family:inherit;
+    font-size:.88rem;
+
+    transition:
+        background .16s ease,
+        border-color .16s ease,
+        transform .16s ease;
 }
 
 .answer:hover{
-  transform:translateX(6px);
-  border-color:rgba(124,255,60,.6);
-  background:#102016;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+    background:#101d13;
+    border-color:#31573a;
+    transform:translateY(-1px);
+}
+
+.answer:active{
+    transform:scale(.985);
+}
+
+.answer-number{
+    flex:0 0 31px;
+
+    width:31px;
+    height:31px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    background:#142219;
+
+    color:#9daf9f;
+
+    font-size:.75rem;
+    font-weight:800;
 }
 
 .answer.selected{
-  border-color:var(--green);
-  background:rgba(124,255,60,.1);
-  box-shadow:
-    0 0 25px rgba(124,255,60,.1),
-    inset 0 0 20px rgba(124,255,60,.04);
+    background:#112316;
+    border-color:var(--green);
 }
 
-/* =========================
+.answer.selected .answer-number{
+    background:var(--green);
+    color:#071008;
+}
+
+/* =========================================================
    LOADING
-========================= */
+========================================================= */
 
 .loading{
-  text-align:center;
-  min-height:350px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    display:none;
+    text-align:center;
+    padding:80px 20px;
 }
 
-.loading-inner{
-  width:100%;
+.loading.active{
+    display:block;
 }
 
-.loader{
-  width:70px;
-  height:70px;
-  margin:0 auto 25px;
-  border-radius:50%;
-  border:2px solid #16251a;
-  border-top-color:var(--green);
-  border-right-color:var(--yellow);
-  animation:spin 1s linear infinite;
-  box-shadow:0 0 30px rgba(124,255,60,.12);
-}
+.loading-spinner{
+    width:42px;
+    height:42px;
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
+    margin:auto;
+
+    border:3px solid #1b3020;
+    border-top-color:var(--green);
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
 }
 
 .loading h2{
-  font-size:1.35rem;
+    margin-top:20px;
+    font-size:1.2rem;
 }
 
 .loading p{
-  color:var(--muted);
-  margin-top:8px;
+    margin-top:7px;
+    color:var(--muted);
+    font-size:.85rem;
 }
 
-/* =========================
+/* =========================================================
    RESULT
-========================= */
+========================================================= */
+
+.result{
+    display:none;
+}
+
+.result.active{
+    display:block;
+}
 
 .result-header{
-  text-align:center;
-  margin-bottom:45px;
+    text-align:center;
+    padding:35px 0 25px;
 }
 
-.result-badge{
-  display:inline-block;
-  color:var(--green);
-  border:1px solid rgba(124,255,60,.25);
-  background:rgba(124,255,60,.06);
-  padding:7px 12px;
-  border-radius:30px;
-  font:10px var(--mono);
-  letter-spacing:.12em;
+.result-icon{
+    width:68px;
+    height:68px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:20px;
+
+    background:#122318;
+    border:1px solid #2a5233;
+
+    font-size:1.8rem;
 }
 
 .result-header h2{
-  font-size:clamp(2rem,6vw,3rem);
-  line-height:1.1;
-  margin-top:18px;
+    font-size:clamp(1.7rem,6vw,2.4rem);
+    line-height:1.15;
 }
 
 .result-header h2 span{
-  color:var(--green);
+    color:var(--green);
 }
 
 .result-header p{
-  color:var(--muted);
-  max-width:600px;
-  margin:16px auto 0;
+    max-width:580px;
+    margin:14px auto 0;
+
+    color:var(--muted);
 }
 
-/* diagnosis */
-
-.diagnosis{
-  background:
-    radial-gradient(circle at 100% 0%,rgba(124,255,60,.12),transparent 35%),
-    var(--card);
-  border:1px solid var(--border);
-  border-radius:25px;
-  padding:30px;
-  margin-bottom:35px;
-  position:relative;
-  overflow:hidden;
-}
-
-.diagnosis::after{
-  content:"JAVA";
-  position:absolute;
-  right:-15px;
-  bottom:-35px;
-  font-size:110px;
-  font-weight:950;
-  color:rgba(124,255,60,.025);
-  pointer-events:none;
-}
-
-.diagnosis-label{
-  color:var(--muted);
-  font:10px var(--mono);
-  letter-spacing:.14em;
-}
-
-.diagnosis h3{
-  color:var(--green);
-  margin-top:8px;
-  font-size:1.55rem;
-}
-
-.diagnosis p{
-  color:#b2c0b5;
-  margin-top:12px;
-}
-
-/* features */
+/* =========================================================
+   RESULT CARDS
+========================================================= */
 
 .features{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:11px;
 }
 
 .feature{
-  padding:24px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  text-align:left;
-  transition:
-    transform .35s ease,
-    border-color .35s ease;
-}
+    padding:17px;
 
-.feature:hover{
-  transform:translateY(-7px);
-  border-color:rgba(124,255,60,.35);
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:17px;
 }
 
 .feature-icon{
-  font-size:25px;
-  margin-bottom:12px;
+    font-size:1.2rem;
+    margin-bottom:8px;
 }
 
-.feature h4{
-  font-size:1rem;
+.feature h3{
+    font-size:.95rem;
+    margin-bottom:5px;
 }
 
 .feature p{
-  color:var(--muted);
-  font-size:.82rem;
-  margin-top:6px;
+    color:var(--muted);
+    font-size:.78rem;
 }
 
-/* =========================
+/* =========================================================
    ROADMAP
-========================= */
+========================================================= */
 
 .roadmap{
-  margin-top:80px;
+    margin-top:25px;
+
+    padding:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:20px;
 }
 
-.section-title{
-  text-align:center;
-  margin-bottom:35px;
-}
-
-.section-title small{
-  color:var(--yellow);
-  font:10px var(--mono);
-  letter-spacing:.2em;
-}
-
-.section-title h2{
-  font-size:2rem;
-  margin-top:8px;
-}
-
-.steps{
-  display:grid;
-  gap:13px;
+.roadmap-title{
+    font-size:1rem;
+    margin-bottom:15px;
 }
 
 .step{
-  display:flex;
-  gap:18px;
-  align-items:flex-start;
-  padding:22px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  text-align:left;
-  transition:.3s ease;
+    display:flex;
+    gap:12px;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #17271b;
 }
 
-.step:hover{
-  transform:translateX(7px);
-  border-color:rgba(124,255,60,.35);
+.step:last-child{
+    border-bottom:0;
 }
 
 .step-number{
-  min-width:38px;
-  height:38px;
-  border-radius:11px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(124,255,60,.08);
-  border:1px solid rgba(124,255,60,.2);
-  color:var(--green);
-  font:12px var(--mono);
+    flex:0 0 28px;
+
+    width:28px;
+    height:28px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:#15261a;
+    color:var(--green);
+
+    font-size:.7rem;
+    font-weight:900;
 }
 
-.step h3{
-  font-size:1rem;
+.step-text strong{
+    display:block;
+    font-size:.84rem;
 }
 
-.step p{
-  color:var(--muted);
-  font-size:.82rem;
-  margin-top:5px;
+.step-text span{
+    display:block;
+    margin-top:2px;
+
+    color:var(--muted);
+    font-size:.74rem;
 }
 
-/* =========================
-   BEFORE AFTER
-========================= */
-
-.compare{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-top:50px;
-}
-
-.compare-card{
-  padding:25px;
-  border-radius:20px;
-  text-align:left;
-  border:1px solid var(--border);
-  background:var(--card);
-}
-
-.compare-card.after{
-  background:
-    radial-gradient(circle at 100% 0%,rgba(124,255,60,.1),transparent 55%),
-    var(--card);
-}
-
-.compare-label{
-  font:10px var(--mono);
-  color:var(--muted);
-  letter-spacing:.1em;
-}
-
-.compare-card h3{
-  margin-top:10px;
-}
-
-.compare-card ul{
-  list-style:none;
-  margin-top:15px;
-}
-
-.compare-card li{
-  font-size:.83rem;
-  color:#aebdb1;
-  padding:7px 0;
-  border-bottom:1px solid rgba(255,255,255,.04);
-}
-
-.compare-card li::before{
-  content:"›";
-  color:var(--green);
-  margin-right:8px;
-}
-
-/* =========================
-   PRODUCT CTA
-========================= */
+/* =========================================================
+   FINAL PRODUCT
+========================================================= */
 
 .product{
-  margin-top:90px;
-  text-align:center;
-  padding:55px 25px;
-  border:1px solid rgba(124,255,60,.2);
-  border-radius:30px;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(124,255,60,.13),transparent 45%),
-    #09120c;
-  box-shadow:0 30px 100px rgba(0,0,0,.4);
-  overflow:hidden;
+    margin-top:25px;
+
+    padding:25px 18px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0e1d12,
+            #09110b
+        );
+
+    border:1px solid #27472c;
+    border-radius:24px;
 }
 
-.product-tag{
-  color:var(--yellow);
-  font:10px var(--mono);
-  letter-spacing:.2em;
+.product-label{
+    color:var(--yellow);
+
+    font-size:.68rem;
+    font-weight:900;
+    letter-spacing:.16em;
 }
 
 .product h2{
-  font-size:clamp(2rem,6vw,3rem);
-  line-height:1.1;
-  margin-top:15px;
-}
+    margin-top:9px;
 
-.product h2 span{
-  color:var(--green);
+    font-size:1.55rem;
+    line-height:1.2;
 }
 
 .product p{
-  max-width:560px;
-  color:var(--muted);
-  margin:16px auto 28px;
+    margin:12px auto 20px;
+
+    color:var(--muted);
+    font-size:.83rem;
+    max-width:500px;
 }
 
 .product-btn{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:280px;
-  padding:18px 28px;
-  border-radius:50px;
-  text-decoration:none;
-  color:#061006;
-  font-weight:950;
-  background:linear-gradient(100deg,var(--green),var(--yellow));
-  box-shadow:0 15px 45px rgba(124,255,60,.2);
-  transition:.35s ease;
-  overflow:hidden;
+    display:block;
+
+    width:100%;
+
+    padding:16px;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        var(--green),
+        var(--yellow)
+    );
+
+    color:#071008;
+
+    text-decoration:none;
+
+    font-weight:900;
+    font-size:.9rem;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
 }
 
 .product-btn:hover{
-  transform:translateY(-5px) scale(1.03);
-  box-shadow:0 20px 60px rgba(124,255,60,.3);
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(124,255,60,.15);
 }
 
-.product-btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.4),
-    transparent 70%
-  );
-  transform:translateX(-120%);
-  animation:productShine 3.5s infinite;
-}
-
-@keyframes productShine{
-  0%,55%{transform:translateX(-120%);}
-  75%,100%{transform:translateX(120%);}
-}
-
-.secure{
-  margin-top:18px;
-  color:#607264;
-  font-size:.72rem;
-}
-
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer{
-  text-align:center;
-  padding:40px 20px 60px;
-  color:#516156;
-  font:9px var(--mono);
-  letter-spacing:.1em;
+    margin-top:35px;
+
+    text-align:center;
+
+    color:#607067;
+
+    font-size:.68rem;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* =========================================================
+   ANIMAÇÕES LEVES
+========================================================= */
 
-@media(max-width:650px){
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(14px);
+    }
 
-  .wrap{
-    padding:45px 18px 80px;
-  }
-
-  .logo{
-    font-size:1.55rem;
-  }
-
-  .logo-icon{
-    width:40px;
-    height:40px;
-    font-size:18px;
-  }
-
-  .hero-title{
-    font-size:1.9rem;
-    letter-spacing:-1px;
-    margin-top:32px;
-  }
-
-  .terminal{
-    margin-top:30px;
-  }
-
-  .terminal-body{
-    font-size:10px;
-  }
-
-  .features,
-  .compare{
-    grid-template-columns:1fr;
-  }
-
-  .section{
-    padding:70px 18px;
-  }
-
-  .quiz-card{
-    padding:28px 18px;
-  }
-
-  .quiz-question{
-    font-size:1.25rem;
-  }
-
-  .product{
-    padding:40px 18px;
-  }
-
-  .product-btn{
-    width:100%;
-    min-width:0;
-  }
-
-  .code-float{
-    display:none;
-  }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
-/* =========================
-   REDUCED MOTION
-========================= */
+@keyframes fadeDown{
+    from{
+        opacity:0;
+        transform:translateY(-10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media(min-width:650px){
+
+    .app{
+        padding:45px 25px 70px;
+    }
+
+    .hero{
+        padding-top:30px;
+    }
+
+    .brand{
+        font-size:1.8rem;
+    }
+
+    .hero-description{
+        font-size:1.05rem;
+    }
+
+    .quiz-card{
+        padding:35px;
+    }
+
+    .question{
+        font-size:1.55rem;
+    }
+
+    .features{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .product{
+        padding:35px;
+    }
+
+    .product-btn{
+        max-width:430px;
+        margin:auto;
+    }
+}
+
+/* =========================================================
+   ACESSIBILIDADE / CELULARES FRACOS
+========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-    scroll-behavior:auto!important;
-  }
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+    }
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ambient code -->
+<div class="background-grid"></div>
+<div class="background-glow"></div>
 
-<div class="code-float cf1">public static void main()</div>
-<div class="code-float cf2">{ System.out.println(); }</div>
-<div class="code-float cf3">ArrayList&lt;String&gt;</div>
-<div class="code-float cf4">class Developer { }</div>
+<main class="app">
 
-<div class="page">
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+    <section class="hero" id="hero">
 
-<section id="hero" class="wrap">
-
-  <div class="logo-area">
-
-    <div class="logo">
-      <div class="logo-icon"></div>
-      <div>
-        <span class="green">JAVA</span>
-        <span class="yellow"> MASTERY</span>
-      </div>
-    </div>
-
-    <div class="sub">
-      DO ZERO AO DEV EMPREGÁVEL
-    </div>
-
-  </div>
-
-  <div class="terminal">
-
-    <div class="terminal-head">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="terminal-title">java_mastery.java</span>
-    </div>
-
-    <div class="terminal-body">
-      <div><span class="green-code">public class</span> JavaMastery {</div>
-      <div>&nbsp;&nbsp;<span class="green-code">public static void</span> main(String[] args) {</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yellow-code">System.out.println</span>("Seu próximo nível começa aqui");</div>
-      <div>&nbsp;&nbsp;}</div>
-      <div>}</div>
-      <div><span class="cursor"></span></div>
-    </div>
-
-  </div>
-
-  <h1 class="hero-title">
-    Descubra o que está impedindo você de
-    <span class="accent">dominar Java.</span>
-  </h1>
-
-  <p class="lead">
-    Responda algumas perguntas rápidas e descubra qual área
-    da sua jornada de programação precisa de mais atenção
-    para evoluir com uma base mais sólida e prática.
-  </p>
-
-  <div class="cta-box">
-
-    <a href="#quiz" id="startBtn" class="cta-btn">
-      COMEÇAR MEU DIAGNÓSTICO →
-    </a>
-
-    <div class="timer">
-      ⏱ Leva menos de 2 minutos
-    </div>
-
-  </div>
-
-  <div class="micro">
-    JAVA • POO • COLLECTIONS • EXCEPTIONS • PROJETOS
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     QUIZ
-===================================================== -->
-
-<section id="quiz" class="section hidden">
-
-  <div class="quiz-shell">
-
-    <div class="quiz-top">
-      <span>JAVA DIAGNOSTIC</span>
-      <span id="questionCounter">01 / 06</span>
-    </div>
-
-    <div class="progress">
-      <div id="progressBar" class="progress-bar"></div>
-    </div>
-
-    <div id="quizCard" class="quiz-card">
-
-      <div id="questionNumber" class="quiz-number">
-        QUESTÃO 01
-      </div>
-
-      <h2 id="questionText" class="quiz-question"></h2>
-
-      <div id="answers" class="answers"></div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     LOADING
-===================================================== -->
-
-<section id="loading" class="section hidden">
-
-  <div class="loading">
-
-    <div class="loading-inner">
-
-      <div class="loader"></div>
-
-      <h2>Analisando seu perfil Java...</h2>
-
-      <p>
-        Cruzando suas respostas com a jornada Java Mastery.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     RESULTADO
-===================================================== -->
-
-<section id="result" class="section hidden">
-
-  <div class="result-header reveal">
-
-    <span class="result-badge">
-      SEU DIAGNÓSTICO JAVA
-    </span>
-
-    <h2>
-      Sua próxima etapa é
-      <span id="resultTitle">construir uma base sólida.</span>
-    </h2>
-
-    <p id="resultDescription">
-      O diagnóstico mostra os principais pontos que podem
-      receber mais atenção na sua jornada de aprendizagem.
-    </p>
-
-  </div>
-
-
-  <div class="diagnosis reveal">
-
-    <div class="diagnosis-label">
-      PRINCIPAL ÁREA DE ATENÇÃO
-    </div>
-
-    <h3 id="diagnosisTitle">
-      FUNDAMENTOS SÓLIDOS
-    </h3>
-
-    <p id="diagnosisText">
-      Antes de avançar para conceitos mais complexos,
-      uma base bem estruturada ajuda a compreender melhor
-      o restante da linguagem.
-    </p>
-
-  </div>
-
-
-  <!-- ================= FEATURES ================= -->
-
-  <div class="section-title reveal">
-
-    <small>O QUE VOCÊ VAI ENCONTRAR</small>
-
-    <h2>Uma jornada prática em Java</h2>
-
-  </div>
-
-  <div class="features">
-
-    <div class="feature reveal">
-      <div class="feature-icon">☕</div>
-      <h4>Fundamentos & Sintaxe</h4>
-      <p>
-        Variáveis, tipos, operadores, estruturas de decisão
-        e lógica de programação.
-      </p>
-    </div>
-
-    <div class="feature reveal">
-      <div class="feature-icon">{ }</div>
-      <h4>Programação Orientada a Objetos</h4>
-      <p>
-        Classes, objetos, encapsulamento, herança e
-        polimorfismo.
-      </p>
-    </div>
-
-    <div class="feature reveal">
-      <div class="feature-icon">▣</div>
-      <h4>Collections</h4>
-      <p>
-        Trabalhe com List, Set, Map e escolha estruturas
-        adequadas para diferentes situações.
-      </p>
-    </div>
-
-    <div class="feature reveal">
-      <div class="feature-icon">⚙</div>
-      <h4>Erros & Arquivos</h4>
-      <p>
-        Exceções, boas práticas e operações de leitura
-        e escrita de arquivos.
-      </p>
-    </div>
-
-    <div class="feature reveal">
-      <div class="feature-icon">⌘</div>
-      <h4>Projetos Práticos</h4>
-      <p>
-        Exercícios e projetos para transformar conceitos
-        em código executável.
-      </p>
-    </div>
-
-    <div class="feature reveal">
-      <div class="feature-icon">▤</div>
-      <h4>Portfólio</h4>
-      <p>
-        Estruture projetos que demonstram aquilo que
-        você realmente sabe fazer.
-      </p>
-    </div>
-
-  </div>
-
-
-  <!-- ================= ROADMAP ================= -->
-
-  <div class="roadmap">
-
-    <div class="section-title reveal">
-
-      <small>JAVA MASTERY</small>
-
-      <h2>Como funciona a jornada</h2>
-
-    </div>
-
-    <div class="steps">
-
-      <div class="step reveal">
-
-        <div class="step-number">01</div>
-
-        <div>
-          <h3>Entenda os fundamentos</h3>
-          <p>
-            Comece pelos conceitos essenciais da linguagem
-            Java e da lógica de programação.
-          </p>
+        <div class="brand">
+            <span class="brand-icon">☕</span>
+            JAVA <span>MASTERY</span>
         </div>
 
-      </div>
-
-
-      <div class="step reveal">
-
-        <div class="step-number">02</div>
-
-        <div>
-          <h3>Aprenda a estruturar código</h3>
-          <p>
-            Entre em POO e aprenda a organizar seus programas
-            utilizando conceitos fundamentais.
-          </p>
+        <div class="badge">
+            DO ZERO AO DEV EMPREGÁVEL
         </div>
 
-      </div>
+        <div class="hero-content">
 
+            <h1>
+                Descubra o que está
+                <span class="accent">travando</span>
+                sua evolução em Java.
+            </h1>
 
-      <div class="step reveal">
+            <p class="hero-description">
+                Responda algumas perguntas rápidas e descubra
+                qual área da sua jornada em Java merece mais atenção.
+            </p>
 
-        <div class="step-number">03</div>
-
-        <div>
-          <h3>Trabalhe com dados e erros</h3>
-          <p>
-            Pratique Collections, exceções e manipulação
-            de arquivos.
-          </p>
         </div>
 
-      </div>
+        <!-- TERMINAL -->
 
+        <div class="terminal">
 
-      <div class="step reveal">
+            <div class="terminal-top">
 
-        <div class="step-number">04</div>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
 
-        <div>
-          <h3>Construa projetos</h3>
-          <p>
-            Coloque os conhecimentos em prática através
-            de projetos e exercícios.
-          </p>
+                <span class="terminal-title">
+                    Main.java
+                </span>
+
+            </div>
+
+            <div class="code">
+
+                <span class="blue">public class</span>
+                <span class="green"> Main</span> {
+
+                <br>
+
+                &nbsp;&nbsp;
+                <span class="blue">public static void</span>
+                <span class="green"> main</span>(String[] args) {
+
+                <br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                System.out.println(
+                <span class="yellow">"Hello, Developer!"</span>);
+
+                <br>
+
+                &nbsp;&nbsp;}
+
+                <br>
+
+                }
+
+            </div>
+
         </div>
 
-      </div>
+        <!-- CTA -->
 
-    </div>
+        <div class="cta-box">
 
-  </div>
+            <button
+                class="primary-btn"
+                id="startBtn"
+                type="button"
+            >
+                COMEÇAR MEU DIAGNÓSTICO →
+            </button>
 
+            <div class="small-note">
+                ⏱ Leva menos de 2 minutos
+            </div>
 
-  <!-- ================= BEFORE / AFTER ================= -->
+        </div>
 
-  <div class="section-title reveal" style="margin-top:90px;">
-
-    <small>A EVOLUÇÃO</small>
-
-    <h2>De conceitos soltos para prática</h2>
-
-  </div>
-
-  <div class="compare">
-
-    <div class="compare-card reveal">
-
-      <div class="compare-label">
-        ANTES
-      </div>
-
-      <h3>Estudar sem direção</h3>
-
-      <ul>
-        <li>Dúvidas sobre por onde começar</li>
-        <li>Conceitos aprendidos isoladamente</li>
-        <li>Pouca prática com código</li>
-        <li>Dificuldade para organizar projetos</li>
-      </ul>
-
-    </div>
+    </section>
 
 
-    <div class="compare-card after reveal">
+    <!-- =====================================================
+         QUIZ
+    ====================================================== -->
 
-      <div class="compare-label">
-        COM UMA JORNADA ESTRUTURADA
-      </div>
-
-      <h3>Aprender praticando</h3>
-
-      <ul>
-        <li>Fundamentos organizados</li>
-        <li>POO aplicada</li>
-        <li>Collections e exceções</li>
-        <li>Projetos para praticar</li>
-      </ul>
-
-    </div>
-
-  </div>
-
-
-  <!-- =====================================================
-       PRODUCT CTA
-  ===================================================== -->
-
-  <div class="product reveal">
-
-    <div class="product-tag">
-      JAVA MASTERY
-    </div>
-
-    <h2>
-      Pronto para começar sua
-      <span>jornada em Java?</span>
-    </h2>
-
-    <p>
-      Acesse o Java Mastery e comece a estudar através
-      de uma sequência organizada de fundamentos,
-      programação orientada a objetos e projetos práticos.
-    </p>
-
-    <!--
-      =====================================================
-      COLOQUE AQUI O LINK DO SEU PRODUTO
-      =====================================================
-    -->
-
-    <a
-      id="productBtn"
-      class="product-btn"
-      href="#"
-      target="_blank"
-      rel="noopener noreferrer"
+    <section
+        class="quiz-section"
+        id="quizSection"
     >
-      ACESSAR JAVA MASTERY →
-    </a>
 
-    <div class="secure">
-       Acesso através da página oficial do produto
-    </div>
+        <div class="quiz-header">
 
-  </div>
+            <div class="quiz-top">
 
-</section>
+                <span id="questionCounter">
+                    PERGUNTA 1 DE 6
+                </span>
+
+                <span id="progressText">
+                    17%
+                </span>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
+
+        </div>
 
 
-<footer class="footer">
-  JAVA MASTERY • DO ZERO AO DEV EMPREGÁVEL
-</footer>
+        <div
+            class="quiz-card entering"
+            id="quizCard"
+        >
 
-</div>
+            <div
+                class="question-number"
+                id="questionNumber"
+            >
+                QUESTÃO 01
+            </div>
+
+            <h2
+                class="question"
+                id="questionText"
+            >
+                Qual é o seu nível atual em Java?
+            </h2>
+
+            <div
+                class="answers"
+                id="answers"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <section
+        class="loading"
+        id="loading"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <h2>
+            Analisando suas respostas...
+        </h2>
+
+        <p>
+            Preparando seu diagnóstico de Java.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESULTADO
+    ====================================================== -->
+
+    <section
+        class="result"
+        id="result"
+    >
+
+        <div class="result-header">
+
+            <div class="result-icon">
+                ☕
+            </div>
+
+            <h2>
+                Seu próximo passo é
+                <span id="resultTitle">
+                    fortalecer os fundamentos
+                </span>
+            </h2>
+
+            <p id="resultDescription">
+                Antes de avançar para projetos maiores,
+                uma base sólida pode tornar sua evolução
+                muito mais consistente.
+            </p>
+
+        </div>
+
+
+        <!-- CARDS -->
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Fundamentos
+                </h3>
+
+                <p>
+                    Variáveis, tipos, condições,
+                    loops e lógica de programação.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🧩
+                </div>
+
+                <h3>
+                    POO
+                </h3>
+
+                <p>
+                    Classes, objetos, encapsulamento,
+                    herança e polimorfismo.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🚀
+                </div>
+
+                <h3>
+                    Projetos
+                </h3>
+
+                <p>
+                    Transforme conhecimento em
+                    aplicações práticas.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ROADMAP -->
+
+        <div class="roadmap">
+
+            <h3 class="roadmap-title">
+                Um caminho possível para sua evolução
+            </h3>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-text">
+
+                    <strong>
+                        Fundamentos de Java
+                    </strong>
+
+                    <span>
+                        Domine a base antes de complicar o código.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-text">
+
+                    <strong>
+                        Programação Orientada a Objetos
+                    </strong>
+
+                    <span>
+                        Aprenda a estruturar programas maiores.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-text">
+
+                    <strong>
+                        Projetos práticos
+                    </strong>
+
+                    <span>
+                        Use Java para construir aplicações reais.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="step-text">
+
+                    <strong>
+                        Próximo nível
+                    </strong>
+
+                    <span>
+                        Explore ferramentas e tecnologias do ecossistema Java.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT -->
+
+        <div class="product">
+
+            <div class="product-label">
+                JAVA MASTERY
+            </div>
+
+            <h2>
+                Do Zero ao Dev Empregável
+            </h2>
+
+            <p>
+                Um material estruturado para acompanhar
+                sua evolução em Java, do básico à construção
+                de projetos.
+            </p>
+
+            <a
+                id="productBtn"
+                class="product-btn"
+                href="https://SEU-LINK-AQUI.com"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                ACESSAR JAVA MASTERY →
+            </a>
+
+        </div>
+
+
+        <div class="footer">
+            Java Mastery — Aprenda. Pratique. Construa.
+        </div>
+
+    </section>
+
+</main>
 
 
 <script>
@@ -1463,30 +1298,13 @@ body::after{
 ========================================================= */
 
 const CONFIG = {
-  checkoutUrl: "https://checkout.escalepay.com/7515366"
+
+    /* COLOQUE AQUI O LINK REAL DO SEU PRODUTO */
+
+    checkoutUrl:
+        "https://checkout.escalepay.com/7515366"
+
 };
-
-document.getElementById("productBtn").href = CONFIG.checkoutUrl;
-
-
-/* =========================================================
-   ELEMENTOS
-========================================================= */
-
-const hero = document.getElementById("hero");
-const quiz = document.getElementById("quiz");
-const loading = document.getElementById("loading");
-const result = document.getElementById("result");
-
-const startBtn = document.getElementById("startBtn");
-const productBtn = document.getElementById("productBtn");
-
-const quizCard = document.getElementById("quizCard");
-const questionNumber = document.getElementById("questionNumber");
-const questionText = document.getElementById("questionText");
-const answers = document.getElementById("answers");
-const questionCounter = document.getElementById("questionCounter");
-const progressBar = document.getElementById("progressBar");
 
 
 /* =========================================================
@@ -1495,65 +1313,184 @@ const progressBar = document.getElementById("progressBar");
 
 const questions = [
 
-  {
-    question: "Qual é o seu nível atual em Java?",
-    answers: [
-      ["Estou começando agora", "fundamentos"],
-      ["Já conheço a sintaxe básica", "poo"],
-      ["Já estudo POO e conceitos intermediários", "frameworks"],
-      ["Já faço projetos em Java", "portfolio"]
-    ]
-  },
+    {
+        question:
+            "Qual é o seu nível atual em Java?",
 
-  {
-    question: "Qual parte de Java mais trava você?",
-    answers: [
-      ["Sintaxe e lógica", "fundamentos"],
-      ["POO e arquitetura", "poo"],
-      ["Frameworks e conceitos avançados", "frameworks"],
-      ["Transformar conhecimento em projetos", "portfolio"]
-    ]
-  },
+        answers: [
 
-  {
-    question: "Quanto tempo você consegue dedicar aos estudos?",
-    answers: [
-      ["Menos de 30 minutos por dia", "fundamentos"],
-      ["30–60 minutos", "poo"],
-      ["1–2 horas", "frameworks"],
-      ["Mais de 2 horas", "portfolio"]
-    ]
-  },
+            {
+                text:"Estou começando agora",
+                category:"fundamentos"
+            },
 
-  {
-    question: "Você já começou a estudar programação e parou?",
-    answers: [
-      ["Nunca comecei de verdade", "fundamentos"],
-      ["Sim, várias vezes", "fundamentos"],
-      ["Sim, mas continuo estudando", "poo"],
-      ["Não, estudo regularmente", "portfolio"]
-    ]
-  },
+            {
+                text:"Já conheço o básico",
+                category:"poo"
+            },
 
-  {
-    question: "Qual é seu principal objetivo com Java?",
-    answers: [
-      ["Aprender programação do zero", "fundamentos"],
-      ["Dominar POO e escrever código melhor", "poo"],
-      ["Conhecer tecnologias do ecossistema Java", "frameworks"],
-      ["Criar projetos para meu portfólio", "portfolio"]
-    ]
-  },
+            {
+                text:"Já estudo POO e conceitos intermediários",
+                category:"frameworks"
+            },
 
-  {
-    question: "Como você costuma estudar programação?",
-    answers: [
-      ["Vídeos e aulas", "fundamentos"],
-      ["Cursos estruturados", "poo"],
-      ["Documentação e artigos", "frameworks"],
-      ["Projetos e exercícios", "portfolio"]
-    ]
-  }
+            {
+                text:"Já consigo desenvolver alguns projetos",
+                category:"portfolio"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "Qual parte de Java mais trava você?",
+
+        answers: [
+
+            {
+                text:"Lógica e fundamentos",
+                category:"fundamentos"
+            },
+
+            {
+                text:"Classes e Programação Orientada a Objetos",
+                category:"poo"
+            },
+
+            {
+                text:"Frameworks e projetos maiores",
+                category:"frameworks"
+            },
+
+            {
+                text:"Transformar conhecimento em projetos",
+                category:"portfolio"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "Quanto tempo você consegue dedicar aos estudos?",
+
+        answers: [
+
+            {
+                text:"Menos de 30 minutos por dia",
+                category:"fundamentos"
+            },
+
+            {
+                text:"30 minutos a 1 hora",
+                category:"poo"
+            },
+
+            {
+                text:"1 a 2 horas",
+                category:"frameworks"
+            },
+
+            {
+                text:"Mais de 2 horas",
+                category:"portfolio"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "Você já começou a estudar programação e acabou parando?",
+
+        answers: [
+
+            {
+                text:"Sim, várias vezes",
+                category:"fundamentos"
+            },
+
+            {
+                text:"Sim, principalmente quando ficou mais difícil",
+                category:"poo"
+            },
+
+            {
+                text:"Não, continuo estudando",
+                category:"frameworks"
+            },
+
+            {
+                text:"Já estudo com projetos",
+                category:"portfolio"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "Qual é o seu principal objetivo com Java?",
+
+        answers: [
+
+            {
+                text:"Aprender programação do zero",
+                category:"fundamentos"
+            },
+
+            {
+                text:"Dominar Java e POO",
+                category:"poo"
+            },
+
+            {
+                text:"Criar aplicações mais completas",
+                category:"frameworks"
+            },
+
+            {
+                text:"Construir portfólio e projetos",
+                category:"portfolio"
+            }
+
+        ]
+    },
+
+
+    {
+        question:
+            "Como você costuma estudar programação?",
+
+        answers: [
+
+            {
+                text:"Vejo aulas e tento acompanhar",
+                category:"fundamentos"
+            },
+
+            {
+                text:"Estudo teoria e faço exercícios",
+                category:"poo"
+            },
+
+            {
+                text:"Faço projetos e pesquiso quando travo",
+                category:"frameworks"
+            },
+
+            {
+                text:"Construo projetos próprios",
+                category:"portfolio"
+            }
+
+        ]
+    }
 
 ];
 
@@ -1564,187 +1501,269 @@ const questions = [
 
 let currentQuestion = 0;
 
-let scores = {
-  fundamentos: 0,
-  poo: 0,
-  frameworks: 0,
-  portfolio: 0
+const score = {
+
+    fundamentos:0,
+    poo:0,
+    frameworks:0,
+    portfolio:0
+
 };
 
 
 /* =========================================================
-   INICIAR
+   ELEMENTOS
 ========================================================= */
 
-startBtn.addEventListener("click", function(e) {
+const hero =
+    document.getElementById("hero");
 
-  e.preventDefault();
+const quizSection =
+    document.getElementById("quizSection");
 
-  hero.classList.add("hero-exit");
+const quizCard =
+    document.getElementById("quizCard");
 
-  setTimeout(() => {
+const questionNumber =
+    document.getElementById("questionNumber");
 
-    hero.style.display = "none";
+const questionText =
+    document.getElementById("questionText");
 
-    quiz.classList.remove("hidden");
+const answersContainer =
+    document.getElementById("answers");
 
-    quiz.style.opacity = "1";
-    quiz.style.transform = "translateY(0)";
+const questionCounter =
+    document.getElementById("questionCounter");
 
-    window.scrollTo({
-      top: quiz.offsetTop - 20,
-      behavior: "smooth"
-    });
+const progressText =
+    document.getElementById("progressText");
 
-    currentQuestion = 0;
+const progressBar =
+    document.getElementById("progressBar");
 
-    renderQuestion();
+const loading =
+    document.getElementById("loading");
 
-  }, 500);
+const result =
+    document.getElementById("result");
 
-});
+const resultTitle =
+    document.getElementById("resultTitle");
+
+const resultDescription =
+    document.getElementById("resultDescription");
+
+const productBtn =
+    document.getElementById("productBtn");
 
 
 /* =========================================================
-   RENDERIZAR PERGUNTA
+   LINK DO PRODUTO
 ========================================================= */
 
-function renderQuestion() {
-
-  const q = questions[currentQuestion];
-
-  /*
-    MUITO IMPORTANTE:
-    Removemos completamente qualquer estado
-    anterior de animação.
-  */
-
-  quizCard.classList.remove(
-    "question-enter",
-    "question-exit"
-  );
-
-  quizCard.style.opacity = "1";
-  quizCard.style.transform = "translateX(0) scale(1)";
-  quizCard.style.filter = "blur(0)";
-
-  /*
-    Força o navegador a recalcular o layout.
-    Isso permite que a animação seja executada
-    novamente em todas as perguntas.
-  */
-
-  void quizCard.offsetWidth;
-
-  quizCard.classList.add("question-enter");
+productBtn.href =
+    CONFIG.checkoutUrl;
 
 
-  /* Número */
+/* =========================================================
+   COMEÇAR
+========================================================= */
 
-  questionNumber.textContent =
-    "QUESTÃO " +
-    String(currentQuestion + 1).padStart(2, "0");
-
-
-  /* Contador */
-
-  questionCounter.textContent =
-    String(currentQuestion + 1).padStart(2, "0") +
-    " / " +
-    String(questions.length).padStart(2, "0");
+document
+    .getElementById("startBtn")
+    .addEventListener("click",startQuiz);
 
 
-  /* Barra */
+function startQuiz(){
 
-  progressBar.style.width =
-    ((currentQuestion + 1) / questions.length * 100) + "%";
+    hero.style.display = "none";
 
+    quizSection.classList.add("active");
 
-  /* Pergunta */
+    currentQuestion = 0;
 
-  questionText.textContent = q.question;
+    resetScore();
 
+    renderQuestion();
 
-  /* Limpa respostas */
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
-  answers.innerHTML = "";
-
-
-  /* Cria respostas */
-
-  q.answers.forEach((answer, index) => {
-
-    const button = document.createElement("button");
-
-    button.type = "button";
-
-    button.className = "answer";
-
-    button.innerHTML = `
-      <strong>${String.fromCharCode(65 + index)}</strong>
-      &nbsp; ${answer[0]}
-    `;
+}
 
 
-    button.addEventListener("click", function() {
+/* =========================================================
+   RESET SCORE
+========================================================= */
 
-      /*
-        Impede duplo clique
-      */
+function resetScore(){
 
-      if (button.dataset.clicked === "true") {
-        return;
-      }
+    score.fundamentos = 0;
+    score.poo = 0;
+    score.frameworks = 0;
+    score.portfolio = 0;
 
-      button.dataset.clicked = "true";
-
-
-      /*
-        Desativa todas as respostas
-      */
-
-      document
-        .querySelectorAll(".answer")
-        .forEach(btn => {
-          btn.disabled = true;
-        });
+}
 
 
-      button.classList.add("selected");
+/* =========================================================
+   RENDER QUESTION
+========================================================= */
+
+function renderQuestion(){
+
+    const item =
+        questions[currentQuestion];
 
 
-      /*
-        Guarda resposta
-      */
+    /* reset visual */
 
-      scores[answer[1]]++;
+    quizCard.classList.remove(
+        "leaving",
+        "entering"
+    );
 
 
-      /*
-        Pequena pausa para mostrar
-        a seleção antes da transição.
-      */
+    quizCard.style.opacity = "0";
+    quizCard.style.transform =
+        "translateX(22px)";
 
-      setTimeout(() => {
 
-        if (currentQuestion < questions.length - 1) {
+    /* textos */
 
-          goToNextQuestion();
+    questionNumber.textContent =
+        "QUESTÃO " +
+        String(currentQuestion + 1)
+            .padStart(2,"0");
 
-        } else {
 
-          finishQuiz();
+    questionCounter.textContent =
+        "PERGUNTA " +
+        (currentQuestion + 1) +
+        " DE " +
+        questions.length;
+
+
+    const percentage =
+        Math.round(
+            ((currentQuestion + 1) /
+            questions.length) * 100
+        );
+
+
+    progressText.textContent =
+        percentage + "%";
+
+
+    progressBar.style.width =
+        percentage + "%";
+
+
+    questionText.textContent =
+        item.question;
+
+
+    /* limpar respostas */
+
+    answersContainer.innerHTML = "";
+
+
+    /* criar respostas */
+
+    item.answers.forEach(
+        (answer,index) => {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+
+            button.className =
+                "answer";
+
+
+            button.innerHTML = `
+
+                <span class="answer-number">
+                    ${String.fromCharCode(65 + index)}
+                </span>
+
+                <span>
+                    ${answer.text}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => selectAnswer(button,answer.category)
+            );
+
+
+            answersContainer.appendChild(button);
 
         }
+    );
 
-      }, 350);
+
+    /*
+       Duplo requestAnimationFrame:
+       garante que o navegador reconheça
+       o estado inicial antes da entrada.
+    */
+
+    requestAnimationFrame(() => {
+
+        requestAnimationFrame(() => {
+
+            quizCard.style.opacity = "1";
+
+            quizCard.style.transform =
+                "translateX(0)";
+
+        });
 
     });
 
+}
 
-    answers.appendChild(button);
 
-  });
+/* =========================================================
+   SELECIONAR RESPOSTA
+========================================================= */
+
+function selectAnswer(button,category){
+
+    /* evita múltiplos cliques */
+
+    const allButtons =
+        answersContainer.querySelectorAll("button");
+
+    allButtons.forEach(
+        btn => btn.disabled = true
+    );
+
+
+    button.classList.add("selected");
+
+
+    score[category]++;
+
+
+    /*
+       Pequeno intervalo para o usuário
+       perceber a seleção.
+    */
+
+    setTimeout(() => {
+
+        nextQuestion();
+
+    },220);
 
 }
 
@@ -1753,98 +1772,66 @@ function renderQuestion() {
    PRÓXIMA PERGUNTA
 ========================================================= */
 
-function goToNextQuestion() {
-
-  /*
-    Sai para a esquerda
-  */
-
-  quizCard.classList.remove("question-enter");
-
-  void quizCard.offsetWidth;
-
-  quizCard.classList.add("question-exit");
-
-
-  setTimeout(() => {
-
-    currentQuestion++;
+function nextQuestion(){
 
     /*
-      Limpa o estado ANTES de renderizar.
+       saída leve
     */
-
-    quizCard.classList.remove("question-exit");
 
     quizCard.style.opacity = "0";
-    quizCard.style.transform = "translateX(80px) scale(.96)";
-    quizCard.style.filter = "blur(8px)";
+
+    quizCard.style.transform =
+        "translateX(-25px)";
 
 
-    /*
-      Renderiza a próxima pergunta.
-    */
+    setTimeout(() => {
 
-    renderQuestion();
+        currentQuestion++;
 
-  }, 380);
+
+        if(
+            currentQuestion >=
+            questions.length
+        ){
+
+            showLoading();
+
+            return;
+
+        }
+
+
+        renderQuestion();
+
+
+    },250);
 
 }
 
 
 /* =========================================================
-   FINALIZAR QUIZ
+   LOADING
 ========================================================= */
 
-function finishQuiz() {
+function showLoading(){
 
-  quizCard.classList.remove("question-enter");
+    quizSection.classList.remove("active");
 
-  void quizCard.offsetWidth;
-
-  quizCard.classList.add("question-exit");
-
-
-  setTimeout(() => {
-
-    quiz.style.opacity = "0";
-    quiz.style.transform = "translateY(-30px)";
-
-  }, 250);
-
-
-  setTimeout(() => {
-
-    quiz.style.display = "none";
-
-    loading.classList.remove("hidden");
-
-    loading.style.opacity = "1";
-    loading.style.transform = "scale(1)";
+    loading.classList.add("active");
 
     window.scrollTo({
-      top: loading.offsetTop - 100,
-      behavior: "smooth"
+        top:0,
+        behavior:"smooth"
     });
 
-  }, 650);
 
+    setTimeout(() => {
 
-  setTimeout(() => {
+        loading.classList.remove("active");
 
-    loading.style.opacity = "0";
-    loading.style.transform = "scale(.94)";
+        showResult();
 
-  }, 2000);
-
-
-  setTimeout(() => {
-
-    loading.style.display = "none";
-
-    showResult();
-
-  }, 2500);
+    },900);
 
 }
 
@@ -1853,176 +1840,108 @@ function finishQuiz() {
    RESULTADO
 ========================================================= */
 
-function showResult() {
+function showResult(){
 
-  let highest = "fundamentos";
-
-  Object.keys(scores).forEach(key => {
-
-    if (scores[key] > scores[highest]) {
-      highest = key;
-    }
-
-  });
+    result.classList.add("active");
 
 
-  const data = {
-
-    fundamentos: {
-      title: "Construir uma base sólida.",
-      diagnosis: "FUNDAMENTOS SÓLIDOS",
-      text:
-        "Seu perfil indica que vale a pena concentrar atenção nos fundamentos da linguagem, sintaxe e lógica antes de avançar para conceitos mais complexos."
-    },
-
-    poo: {
-      title: "Aprofundar POO e estrutura de código.",
-      diagnosis: "POO E ARQUITETURA",
-      text:
-        "Seu próximo passo pode ser fortalecer a Programação Orientada a Objetos e entender melhor como organizar classes, objetos e responsabilidades."
-    },
-
-    frameworks: {
-      title: "Expandir seu conhecimento técnico.",
-      diagnosis: "PREPARAÇÃO TÉCNICA",
-      text:
-        "Você demonstra interesse por conceitos além da base. Uma jornada estruturada pode ajudar a conectar fundamentos, POO e tecnologias do ecossistema Java."
-    },
-
-    portfolio: {
-      title: "Transformar conhecimento em projetos.",
-      diagnosis: "PROJETOS E PORTFÓLIO",
-      text:
-        "Seu foco está na prática. Projetos ajudam a consolidar conceitos e permitem transformar o que foi estudado em código."
-    }
-
-  };
+    const category =
+        getHighestCategory();
 
 
-  document.getElementById("resultTitle").textContent =
-    data[highest].title;
+    const data = {
 
-  document.getElementById("diagnosisTitle").textContent =
-    data[highest].diagnosis;
+        fundamentos:{
 
-  document.getElementById("diagnosisText").textContent =
-    data[highest].text;
+            title:
+                "fortalecer os fundamentos",
 
+            description:
+                "Sua jornada pode ganhar consistência começando pela base: lógica, sintaxe, variáveis, condições, loops e os principais conceitos da linguagem Java."
 
-  result.classList.remove("hidden");
-
-  result.style.opacity = "0";
-  result.style.transform = "translateY(50px)";
-
-  setTimeout(() => {
-
-    result.style.transition =
-      "opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)";
-
-    result.style.opacity = "1";
-    result.style.transform = "translateY(0)";
-
-  }, 50);
+        },
 
 
-  setTimeout(() => {
+        poo:{
 
-    result.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+            title:
+                "dominar Programação Orientada a Objetos",
+
+            description:
+                "Você já está além do primeiro contato com Java. O próximo passo é compreender como classes, objetos, encapsulamento, herança e polimorfismo trabalham juntos."
+
+        },
+
+
+        frameworks:{
+
+            title:
+                "avançar para projetos maiores",
+
+            description:
+                "Sua próxima etapa pode ser conectar os conhecimentos de Java com aplicações mais completas, arquitetura e ferramentas do ecossistema."
+
+        },
+
+
+        portfolio:{
+
+            title:
+                "transformar conhecimento em projetos",
+
+            description:
+                "Construir projetos é uma forma prática de transformar o que você estudou em experiência concreta e material para seu portfólio."
+
+        }
+
+    };
+
+
+    resultTitle.textContent =
+        data[category].title;
+
+
+    resultDescription.textContent =
+        data[category].description;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
     });
-
-  }, 100);
-
-
-  /*
-    Ativa os elementos internos
-  */
-
-  setTimeout(() => {
-
-    document
-      .querySelectorAll("#result .reveal")
-      .forEach((el, index) => {
-
-        setTimeout(() => {
-
-          el.classList.add("visible");
-
-        }, index * 100);
-
-      });
-
-  }, 300);
 
 }
 
 
 /* =========================================================
-   SCROLL REVEAL
+   MAIOR PONTUAÇÃO
 ========================================================= */
 
-const observer = new IntersectionObserver(
-  entries => {
+function getHighestCategory(){
 
-    entries.forEach(entry => {
-
-      if (entry.isIntersecting) {
-
-        entry.target.classList.add("visible");
-
-      }
-
-    });
-
-  },
-  {
-    threshold: 0.12
-  }
-);
+    let highest =
+        "fundamentos";
 
 
-document
-  .querySelectorAll(".reveal")
-  .forEach(el => observer.observe(el));
+    Object.keys(score).forEach(
+        category => {
+
+            if(
+                score[category] >
+                score[highest]
+            ){
+
+                highest = category;
+
+            }
+
+        }
+    );
 
 
-/* =========================================================
-   ANIMAÇÃO DE SAÍDA DO HERO
-========================================================= */
-
-const heroExitStyle = document.createElement("style");
-
-heroExitStyle.textContent = `
-
-.hero-exit {
-  animation:
-    heroExit
-    .55s
-    cubic-bezier(.7,0,.3,1)
-    forwards !important;
-}
-
-@keyframes heroExit {
-
-  0% {
-    opacity:1;
-    transform:translateY(0) scale(1);
-    filter:blur(0);
-  }
-
-  100% {
-    opacity:0;
-    transform:translateY(-60px) scale(.96);
-    filter:blur(10px);
-  }
+    return highest;
 
 }
-
-`;
-
-document.head.appendChild(heroExitStyle);
-
 </script>
 
 </body>
